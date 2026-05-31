@@ -6,61 +6,44 @@
   <title>💊 健康小勇士</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --blue: #3b82f6;
-      --blue-dark: #1d4ed8;
-      --green: #22c55e;
-      --purple: #8b5cf6;
-      --orange: #f97316;
-      --red: #ef4444;
-      --gold: #f59e0b;
+      --blue: #3b82f6; --blue-dark: #1d4ed8; --green: #22c55e;
+      --purple: #8b5cf6; --orange: #f97316; --gold: #f59e0b;
     }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-      min-height: 100vh;
-      padding: 20px 16px 40px;
-      color: #f8fafc;
+      min-height: 100vh; padding: 20px 16px 40px; color: #f8fafc;
     }
-
     .header { text-align: center; margin-bottom: 24px; }
     .header h1 {
       font-size: 26px; font-weight: 900;
       background: linear-gradient(135deg, #60a5fa, #a78bfa, #34d399);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; letter-spacing: -0.5px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .header .subtitle { font-size: 13px; color: #94a3b8; margin-top: 2px; }
     .date-pill {
-      display: inline-block;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 99px; padding: 4px 14px;
-      font-size: 12px; color: #cbd5e1; margin-top: 8px;
+      display: inline-block; background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 99px;
+      padding: 4px 14px; font-size: 12px; color: #cbd5e1; margin-top: 8px;
     }
-
     .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px; padding: 20px; margin-bottom: 14px;
-      backdrop-filter: blur(10px); max-width: 480px;
-      margin-left: auto; margin-right: auto;
+      backdrop-filter: blur(10px); max-width: 480px; margin-left: auto; margin-right: auto;
     }
-    .card + .card { margin-top: 0; }
     .card-title {
-      font-size: 14px; font-weight: 700; color: #94a3b8;
-      letter-spacing: 0.5px; text-transform: uppercase;
-      margin-bottom: 16px; display: flex;
-      align-items: center; justify-content: space-between; gap: 6px;
+      font-size: 14px; font-weight: 700; color: #94a3b8; letter-spacing: 0.5px;
+      text-transform: uppercase; margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
     }
     .card-title span:first-child { display: flex; align-items: center; gap: 6px; }
 
+    /* Mascot */
     .mascot-wrap { text-align: center; padding: 10px 0 4px; }
     .mascot {
       font-size: 72px; line-height: 1; display: inline-block;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); transition: transform 0.3s;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
     }
     .mascot.pop { animation: mascotPop 0.5s cubic-bezier(.36,.07,.19,.97); }
     @keyframes mascotPop {
@@ -69,12 +52,8 @@
       75% { transform: scale(1.15) rotate(8deg); }
     }
     .mascot-msg { font-size: 14px; color: #cbd5e1; margin-top: 8px; min-height: 20px; }
-
     .xp-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
-    .xp-bar {
-      flex: 1; height: 10px; background: rgba(255,255,255,0.1);
-      border-radius: 99px; overflow: hidden;
-    }
+    .xp-bar { flex: 1; height: 10px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
     .xp-fill {
       height: 100%; border-radius: 99px;
       background: linear-gradient(90deg, var(--gold), #f97316);
@@ -82,74 +61,61 @@
     }
     .xp-fill::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       animation: shine 2s infinite;
     }
-    @keyframes shine {
-      0% { transform: translateX(-100%); } 100% { transform: translateX(100%); }
-    }
+    @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
     .xp-label { font-size: 12px; color: var(--gold); font-weight: 700; white-space: nowrap; }
-
     .streak {
       display: inline-flex; align-items: center; gap: 5px;
       background: linear-gradient(135deg, #dc2626, #f97316);
-      border-radius: 99px; padding: 5px 14px; font-size: 13px;
-      font-weight: 800; margin-top: 12px;
-      box-shadow: 0 4px 15px rgba(239,68,68,0.4);
+      border-radius: 99px; padding: 5px 14px; font-size: 13px; font-weight: 800;
+      margin-top: 12px; box-shadow: 0 4px 15px rgba(239,68,68,0.4);
     }
 
     /* Water */
-    .water-stat { display: flex; align-items: baseline; gap: 4px; margin-bottom: 14px; }
+    .water-stat { display: flex; align-items: baseline; gap: 4px; margin-bottom: 6px; }
     .water-count { font-size: 48px; font-weight: 900; color: var(--blue); line-height: 1; }
     .water-denom { font-size: 20px; color: #475569; font-weight: 700; }
-    .water-target { font-size: 12px; color: #64748b; margin-left: auto; align-self: center; }
+    .water-meta { font-size: 12px; color: #64748b; margin-bottom: 14px; }
 
-    /* Goal edit */
     .goal-edit-btn {
       background: none; border: 1px solid #334155; border-radius: 8px;
-      color: #64748b; font-size: 12px; padding: 4px 10px;
-      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      color: #64748b; font-size: 12px; padding: 4px 10px; cursor: pointer; transition: all 0.2s;
     }
     .goal-edit-btn:hover { border-color: var(--blue); color: #93c5fd; }
-
     .goal-edit-wrap {
-      display: none; background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      display: none; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 14px; padding: 14px; margin-bottom: 14px;
     }
     .goal-edit-wrap.open { display: block; }
-    .goal-edit-label { font-size: 13px; color: #94a3b8; margin-bottom: 8px; }
+    .goal-edit-label { font-size: 12px; color: #94a3b8; margin-bottom: 6px; margin-top: 10px; }
+    .goal-edit-label:first-child { margin-top: 0; }
     .goal-edit-row { display: flex; align-items: center; gap: 10px; }
     .goal-minus, .goal-plus {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 2px solid #334155; background: none;
-      color: #f8fafc; font-size: 20px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.2s;
+      width: 36px; height: 36px; border-radius: 50%; border: 2px solid #334155;
+      background: none; color: #f8fafc; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: border-color 0.2s;
     }
-    .goal-minus:hover { border-color: var(--red); color: #fca5a5; }
-    .goal-plus:hover { border-color: var(--blue); color: #93c5fd; }
-    .goal-num {
-      flex: 1; text-align: center; font-size: 28px;
-      font-weight: 900; color: var(--blue);
-    }
+    .goal-minus:hover { border-color: #ef4444; color: #fca5a5; }
+    .goal-plus:hover  { border-color: var(--blue); color: #93c5fd; }
+    .goal-num { flex: 1; text-align: center; font-size: 24px; font-weight: 900; color: var(--blue); }
     .goal-unit { font-size: 13px; color: #64748b; }
+    .goal-derived { font-size: 13px; color: #60a5fa; margin-top: 8px; text-align: center; font-weight: 700; }
     .goal-save-btn {
       width: 100%; margin-top: 12px; padding: 11px;
       background: linear-gradient(135deg, var(--blue), var(--blue-dark));
       color: white; border: none; border-radius: 10px;
-      font-size: 14px; font-weight: 700; cursor: pointer;
-      transition: transform 0.15s;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.15s;
     }
     .goal-save-btn:hover { transform: translateY(-1px); }
 
     .cups-grid { display: grid; gap: 6px; margin-bottom: 14px; }
     .cup {
-      aspect-ratio: 3/4; border-radius: 3px 3px 8px 8px;
-      border: 2px solid #334155; cursor: pointer; position: relative;
-      overflow: hidden; transition: transform 0.15s, border-color 0.2s;
-      background: #0f172a; display: flex; align-items: center;
-      justify-content: center; font-size: 14px;
+      aspect-ratio: 3/4; border-radius: 3px 3px 8px 8px; border: 2px solid #334155;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: transform 0.15s, border-color 0.2s;
+      background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 14px;
     }
     .cup:hover { transform: scale(1.15); border-color: var(--blue); }
     .cup.filled { border-color: #60a5fa; }
@@ -164,33 +130,28 @@
     .btn {
       width: 100%; padding: 14px; border: none; border-radius: 13px;
       font-size: 15px; font-weight: 700; cursor: pointer;
-      transition: transform 0.15s, opacity 0.2s, box-shadow 0.2s;
+      transition: transform 0.15s, box-shadow 0.2s;
     }
     .btn:hover:not(:disabled) { transform: translateY(-2px); }
-    .btn:active:not(:disabled) { transform: translateY(0); }
     .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
     .btn-water {
       background: linear-gradient(135deg, var(--blue), var(--blue-dark));
       color: white; box-shadow: 0 4px 20px rgba(59,130,246,0.4);
     }
-    .btn-water:hover:not(:disabled) { box-shadow: 0 6px 25px rgba(59,130,246,0.6); }
-
     .reset-link {
-      background: none; border: none; font-size: 11px;
-      color: #475569; cursor: pointer; text-decoration: underline; padding: 0;
+      background: none; border: none; font-size: 11px; color: #475569;
+      cursor: pointer; text-decoration: underline; padding: 0;
     }
-    .reset-link:hover { color: #94a3b8; }
 
     /* Medicine */
     .meal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .meal-card {
-      border: 2px solid #1e293b; border-radius: 14px;
-      padding: 16px 10px 12px; text-align: center;
-      cursor: pointer; transition: all 0.25s; background: rgba(255,255,255,0.03);
+      border: 2px solid #1e293b; border-radius: 14px; padding: 16px 10px 12px;
+      text-align: center; cursor: pointer; transition: all 0.25s; background: rgba(255,255,255,0.03);
     }
     .meal-card:hover { border-color: var(--purple); background: rgba(139,92,246,0.08); }
     .meal-card.taken { border-color: var(--green); background: rgba(34,197,94,0.08); }
-    .meal-icon { font-size: 30px; display: block; margin-bottom: 6px; transition: transform 0.3s; }
+    .meal-icon { font-size: 30px; display: block; margin-bottom: 6px; }
     .meal-card.taken .meal-icon { animation: iconPop 0.5s ease; }
     @keyframes iconPop {
       0%,100% { transform: scale(1); }
@@ -207,19 +168,26 @@
     .timer-emoji { font-size: 40px; }
     .timer-info { flex: 1; }
     .timer-task { font-size: 13px; font-weight: 700; color: #94a3b8; margin-bottom: 2px; }
-    .timer-countdown {
-      font-size: 34px; font-weight: 900;
-      font-variant-numeric: tabular-nums; color: var(--orange); line-height: 1;
-    }
+    .timer-countdown { font-size: 34px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--orange); line-height: 1; }
     .timer-desc { font-size: 11px; color: #475569; margin-top: 2px; }
     .btn-notify {
-      background: linear-gradient(135deg, #f97316, #ea580c);
-      color: white; margin-top: 14px;
-      box-shadow: 0 4px 15px rgba(249,115,22,0.35);
-      font-size: 13px; padding: 12px;
+      background: linear-gradient(135deg, #f97316, #ea580c); color: white;
+      margin-top: 14px; box-shadow: 0 4px 15px rgba(249,115,22,0.35); font-size: 13px; padding: 12px;
     }
 
-    /* Stats */
+    /* Stats tabs */
+    .stat-tabs {
+      display: flex; gap: 6px; margin-bottom: 16px;
+      background: rgba(255,255,255,0.04); border-radius: 12px; padding: 4px;
+    }
+    .stat-tab {
+      flex: 1; padding: 8px 4px; border: none; border-radius: 9px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      background: none; color: #64748b; transition: all 0.2s;
+    }
+    .stat-tab.active {
+      background: rgba(255,255,255,0.1); color: #f8fafc;
+    }
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .stat-box { background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px 8px; text-align: center; }
     .stat-num {
@@ -229,34 +197,24 @@
     }
     .stat-lbl { font-size: 11px; color: #64748b; margin-top: 2px; }
 
+    /* Floaties */
     .float-pts {
       position: fixed; pointer-events: none; font-size: 22px; font-weight: 900;
       color: var(--gold); text-shadow: 0 2px 8px rgba(0,0,0,0.6);
       animation: floatUp 1.2s ease forwards; z-index: 9999;
     }
-    @keyframes floatUp {
-      0%  { opacity: 1; transform: translateY(0) scale(1); }
-      100%{ opacity: 0; transform: translateY(-90px) scale(1.4); }
-    }
-
+    @keyframes floatUp { 0% { opacity:1; transform:translateY(0) scale(1); } 100% { opacity:0; transform:translateY(-90px) scale(1.4); } }
     .toast {
-      position: fixed; bottom: 24px; left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(16px); border-radius: 14px;
-      padding: 12px 20px; font-size: 14px; font-weight: 600;
-      color: #f8fafc; white-space: nowrap; opacity: 0;
-      transition: all 0.35s cubic-bezier(.4,0,.2,1);
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: rgba(15,23,42,0.95); border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(16px); border-radius: 14px; padding: 12px 20px;
+      font-size: 14px; font-weight: 600; color: #f8fafc; white-space: nowrap;
+      opacity: 0; transition: all 0.35s cubic-bezier(.4,0,.2,1);
       z-index: 9998; max-width: 90vw; text-align: center;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
     .confetti-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 9997; overflow: hidden; }
-    .c-piece {
-      position: absolute; width: 8px; height: 8px; top: -20px;
-      animation: cFall linear forwards;
-    }
+    .c-piece { position: absolute; width: 8px; height: 8px; top: -20px; animation: cFall linear forwards; }
     @keyframes cFall { to { transform: translateY(105vh) rotate(540deg); opacity: 0; } }
   </style>
 </head>
@@ -269,7 +227,7 @@
 </div>
 
 <!-- Mascot -->
-<div class="card" style="text-align:center; padding-bottom:16px;">
+<div class="card" style="text-align:center;padding-bottom:16px;">
   <div class="mascot-wrap">
     <div class="mascot" id="mascot">🌱</div>
     <p class="mascot-msg" id="mascotMsg">今天的健康任務開始囉！加油！</p>
@@ -278,9 +236,7 @@
     <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
     <div class="xp-label" id="xpLabel">0/11</div>
   </div>
-  <div>
-    <span class="streak" id="streakBadge">🔥 連續 <span id="streakDays">0</span> 天</span>
-  </div>
+  <div><span class="streak">🔥 連續 <span id="streakDays">0</span> 天</span></div>
 </div>
 
 <!-- Water -->
@@ -288,42 +244,37 @@
   <div class="card-title">
     <span>💧 今日喝水</span>
     <div style="display:flex;gap:8px;align-items:center;">
-      <button class="goal-edit-btn" onclick="toggleGoalEdit()">⚙ 設定目標</button>
+      <button class="goal-edit-btn" onclick="toggleGoalEdit()">⚙ 設定</button>
       <button class="reset-link" onclick="resetWater()">重置</button>
     </div>
   </div>
 
-  <!-- Goal editor -->
   <div class="goal-edit-wrap" id="goalEditWrap">
     <div class="goal-edit-label">每日總水量目標</div>
     <div class="goal-edit-row">
       <button class="goal-minus" onclick="changeTotalMl(-100)">−</button>
-      <div class="goal-num" id="totalMlNum" style="font-size:22px;">2000</div>
+      <div class="goal-num" id="totalMlNum">2000</div>
       <span class="goal-unit">ml</span>
       <button class="goal-plus" onclick="changeTotalMl(100)">＋</button>
     </div>
-    <div class="goal-edit-label" style="margin-top:14px;">每杯水量</div>
+    <div class="goal-edit-label">每杯水量</div>
     <div class="goal-edit-row">
       <button class="goal-minus" onclick="changeMlPerCup(-50)">−</button>
-      <div class="goal-num" id="mlPerCupNum" style="font-size:22px;">250</div>
+      <div class="goal-num" id="mlPerCupNum">250</div>
       <span class="goal-unit">ml</span>
       <button class="goal-plus" onclick="changeMlPerCup(50)">＋</button>
     </div>
-    <div style="font-size:13px;color:#60a5fa;margin-top:10px;text-align:center;font-weight:700;">
-      ＝ 每天 <span id="cupsPreview">8</span> 杯
-    </div>
+    <div class="goal-derived">＝ 每天 <span id="cupsPreview">8</span> 杯</div>
     <button class="goal-save-btn" onclick="saveGoal()">儲存</button>
   </div>
 
   <div class="water-stat">
     <div class="water-count" id="waterCount">0</div>
     <div class="water-denom" id="waterDenom">/ 8 杯</div>
-    <div class="water-target" id="waterTarget">目標 2000 ml</div>
   </div>
+  <div class="water-meta" id="waterMeta">每杯 250 ml｜目標 2000 ml</div>
   <div class="cups-grid" id="cupsGrid"></div>
-  <button class="btn btn-water" id="waterBtn" onclick="addWater()">
-    ＋ 我剛喝了一杯水！
-  </button>
+  <button class="btn btn-water" id="waterBtn" onclick="addWater()">＋ 我剛喝了一杯水！</button>
 </div>
 
 <!-- Medicine -->
@@ -349,20 +300,12 @@
 <!-- Stats -->
 <div class="card">
   <div class="card-title"><span>📊 累計紀錄</span></div>
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-num" id="stWater">0</div>
-      <div class="stat-lbl">喝水總杯數</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stMeds">0</div>
-      <div class="stat-lbl">吃藥次數</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" id="stDays">0</div>
-      <div class="stat-lbl">完成天數</div>
-    </div>
+  <div class="stat-tabs">
+    <button class="stat-tab active" onclick="switchTab('all')"  id="tab-all">💧＋🌿 全部</button>
+    <button class="stat-tab"        onclick="switchTab('water')" id="tab-water">💧 喝水</button>
+    <button class="stat-tab"        onclick="switchTab('med')"   id="tab-med">🌿 中藥</button>
   </div>
+  <div class="stats-grid" id="statsGrid"></div>
 </div>
 
 <script>
@@ -378,13 +321,15 @@ const MASCOTS = [
   { e: '🌺', msg: '太棒了！健康寶寶！' },
   { e: '🏆', msg: '完美！今日任務全部達成！✨' },
 ];
-const WATER_INTERVAL_MIN = 90;
 
-let mlPerCup  = parseInt(localStorage.getItem('hq_mlPerCup')  || '250');
-let totalMlGoal = parseInt(localStorage.getItem('hq_totalMl') || '2000');
-let waterGoal = Math.max(1, Math.round(totalMlGoal / mlPerCup));
-let pendingMlPerCup = mlPerCup;
+// Settings
+let totalMlGoal = parseInt(localStorage.getItem('hq_totalMl')  || '2000');
+let mlPerCup    = parseInt(localStorage.getItem('hq_mlPerCup') || '250');
+let waterGoal   = Math.max(1, Math.round(totalMlGoal / mlPerCup));
 let pendingTotalMl  = totalMlGoal;
+let pendingMlPerCup = mlPerCup;
+
+let statsTab = localStorage.getItem('hq_statsTab') || 'all';
 let state = loadState();
 let notifyEnabled = false;
 let toastTimer = null;
@@ -392,21 +337,23 @@ let toastTimer = null;
 function maxXP() { return waterGoal + 3; }
 
 function todayKey() { return new Date().toISOString().slice(0, 10); }
-function yesterdayKey() { const d = new Date(); d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); }
+function yesterdayKey() { const d = new Date(); d.setDate(d.getDate()-1); return d.toISOString().slice(0,10); }
 
 function loadState() {
   const today = todayKey();
   const raw = JSON.parse(localStorage.getItem('hq_v2') || '{}');
   if (raw.date === today) return raw;
   const streakCarry = (raw.date === yesterdayKey() && raw.completed)
-    ? (raw.streak || 0) + 1 : (raw.streak || 0);
+    ? (raw.streak||0)+1 : (raw.streak||0);
   return {
     date: today, water: 0,
-    meals: { breakfast: false, lunch: false, dinner: false },
+    meals: { breakfast:false, lunch:false, dinner:false },
     streak: streakCarry, completed: false,
-    totalWater: raw.totalWater || 0,
-    totalMeds:  raw.totalMeds  || 0,
-    totalDays:  raw.totalDays  || 0,
+    totalWater: raw.totalWater||0,
+    totalMeds:  raw.totalMeds||0,
+    totalDays:  raw.totalDays||0,
+    waterDays:  raw.waterDays||0,
+    medDays:    raw.medDays||0,
   };
 }
 function save() { localStorage.setItem('hq_v2', JSON.stringify(state)); }
@@ -415,22 +362,62 @@ function xp() { return state.water + Object.values(state.meals).filter(Boolean).
 
 function syncMascot() {
   const pct = xp() / maxXP();
-  const idx = pct === 0 ? 0 : pct < 0.31 ? 1 : pct < 0.61 ? 2 : pct < 1 ? 3 : 4;
+  const idx = pct===0?0:pct<0.31?1:pct<0.61?2:pct<1?3:4;
   const m = MASCOTS[idx];
   document.getElementById('mascot').textContent    = m.e;
   document.getElementById('mascotMsg').textContent = m.msg;
-  document.getElementById('xpFill').style.width    = `${Math.min(100, (xp() / maxXP()) * 100)}%`;
+  document.getElementById('xpFill').style.width    = `${Math.min(100,(xp()/maxXP())*100)}%`;
   document.getElementById('xpLabel').textContent   = `${xp()}/${maxXP()}`;
   document.getElementById('streakDays').textContent = state.streak;
+
   if (xp() >= maxXP() && !state.completed) {
-    state.completed = true; state.totalDays++; save();
-    triggerConfetti(); toast('🏆 今日任務全部完成！連續 ' + state.streak + ' 天！');
+    state.completed = true; state.totalDays++;
+    // also count sub-completions
+    if (state.water >= waterGoal) state.waterDays = (state.waterDays||0)+1;
+    if (Object.values(state.meals).every(Boolean)) state.medDays = (state.medDays||0)+1;
+    save();
+    triggerConfetti(); toast('🏆 今日任務全部完成！連續 '+state.streak+' 天！');
   }
 }
-function syncStats() {
-  document.getElementById('stWater').textContent = state.totalWater;
-  document.getElementById('stMeds').textContent  = state.totalMeds;
-  document.getElementById('stDays').textContent  = state.totalDays;
+
+// Stats tabs
+function switchTab(tab) {
+  statsTab = tab;
+  localStorage.setItem('hq_statsTab', tab);
+  ['all','water','med'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+  });
+  renderStats();
+}
+
+function renderStats() {
+  const todayMeds = Object.values(state.meals).filter(Boolean).length;
+  const grid = document.getElementById('statsGrid');
+
+  const configs = {
+    all: [
+      { num: state.totalWater, lbl: '喝水總杯數' },
+      { num: state.totalMeds,  lbl: '吃藥總次數' },
+      { num: state.totalDays,  lbl: '完成天數' },
+    ],
+    water: [
+      { num: state.water,       lbl: `今日（/${waterGoal}杯）` },
+      { num: state.totalWater,  lbl: '累計杯數' },
+      { num: state.waterDays||0,lbl: '達標天數' },
+    ],
+    med: [
+      { num: todayMeds,        lbl: '今日（/3 餐）' },
+      { num: state.totalMeds,  lbl: '累計次數' },
+      { num: state.medDays||0, lbl: '全勤天數' },
+    ],
+  };
+
+  grid.innerHTML = configs[statsTab].map(c => `
+    <div class="stat-box">
+      <div class="stat-num">${c.num}</div>
+      <div class="stat-lbl">${c.lbl}</div>
+    </div>
+  `).join('');
 }
 
 // Goal editor
@@ -447,56 +434,42 @@ function toggleGoalEdit() {
   updateCupsPreview();
   wrap.classList.toggle('open');
 }
-function changeTotalMl(delta) {
-  pendingTotalMl = Math.min(5000, Math.max(200, pendingTotalMl + delta));
-  document.getElementById('totalMlNum').textContent = pendingTotalMl;
-  updateCupsPreview();
-}
-function changeMlPerCup(delta) {
-  pendingMlPerCup = Math.min(1000, Math.max(50, pendingMlPerCup + delta));
-  document.getElementById('mlPerCupNum').textContent = pendingMlPerCup;
-  updateCupsPreview();
-}
+function changeTotalMl(d)  { pendingTotalMl  = Math.min(5000,Math.max(200,pendingTotalMl+d));  document.getElementById('totalMlNum').textContent=pendingTotalMl;  updateCupsPreview(); }
+function changeMlPerCup(d) { pendingMlPerCup = Math.min(1000,Math.max(50,pendingMlPerCup+d));  document.getElementById('mlPerCupNum').textContent=pendingMlPerCup; updateCupsPreview(); }
 function saveGoal() {
-  totalMlGoal = pendingTotalMl;
-  mlPerCup    = pendingMlPerCup;
+  totalMlGoal = pendingTotalMl; mlPerCup = pendingMlPerCup;
   waterGoal   = Math.max(1, Math.round(totalMlGoal / mlPerCup));
   localStorage.setItem('hq_totalMl',  totalMlGoal);
   localStorage.setItem('hq_mlPerCup', mlPerCup);
   document.getElementById('goalEditWrap').classList.remove('open');
   if (state.water > waterGoal) { state.water = waterGoal; save(); }
-  renderCups(); syncMascot();
-  toast(`✅ 目標：${totalMlGoal} ml，每杯 ${mlPerCup} ml，共 ${waterGoal} 杯`);
+  renderCups(); syncMascot(); renderStats();
+  toast(`✅ 目標 ${totalMlGoal} ml，每杯 ${mlPerCup} ml，共 ${waterGoal} 杯`);
 }
 
 // Cups
 function renderCups() {
   const grid = document.getElementById('cupsGrid');
-  const cols = waterGoal <= 8 ? waterGoal : waterGoal <= 12 ? Math.ceil(waterGoal / 2) : Math.ceil(waterGoal / 3);
-  grid.style.gridTemplateColumns = `repeat(${Math.min(waterGoal, 8)}, 1fr)`;
-  if (waterGoal > 8) grid.style.gridTemplateColumns = `repeat(${Math.ceil(waterGoal / Math.ceil(waterGoal / 8))}, 1fr)`;
-
+  const cols = waterGoal <= 8 ? waterGoal : waterGoal <= 12 ? Math.ceil(waterGoal/2) : Math.ceil(waterGoal/3);
+  grid.style.gridTemplateColumns = `repeat(${Math.min(8, waterGoal)}, 1fr)`;
   grid.innerHTML = '';
   for (let i = 0; i < waterGoal; i++) {
-    const div = document.createElement('div');
     const filled = i < state.water;
+    const div = document.createElement('div');
     div.className = 'cup' + (filled ? ' filled' : '');
     div.innerHTML = `<span class="cup-icon">${filled ? '💧' : '🫙'}</span>`;
-    div.title = filled ? '點擊取消' : '點擊標記';
     div.onclick = () => {
       if (filled) { state.water = i; }
-      else { state.water = i + 1; state.totalWater++; floatPts('+1 💧'); popMascot(); }
-      save(); renderCups(); syncMascot(); syncStats();
+      else { state.water = i+1; state.totalWater++; floatPts('+1 💧'); popMascot(); }
+      save(); renderCups(); syncMascot(); renderStats();
     };
     grid.appendChild(div);
   }
-
-  document.getElementById('waterDenom').textContent = `/ ${waterGoal} 杯`;
-  document.getElementById('waterTarget').textContent = `每杯 ${mlPerCup} ml｜目標 ${totalMlGoal} ml`;
   document.getElementById('waterCount').textContent = state.water;
-
-  const btn = document.getElementById('waterBtn');
+  document.getElementById('waterDenom').textContent = `/ ${waterGoal} 杯`;
+  document.getElementById('waterMeta').textContent  = `每杯 ${mlPerCup} ml｜目標 ${totalMlGoal} ml`;
   const done = state.water >= waterGoal;
+  const btn = document.getElementById('waterBtn');
   btn.disabled = done;
   btn.textContent = done ? '✅ 今日喝水目標達成！' : '＋ 我剛喝了一杯水！';
 }
@@ -504,7 +477,7 @@ function renderCups() {
 function addWater() {
   if (state.water >= waterGoal) return;
   state.water++; state.totalWater++;
-  save(); renderCups(); syncMascot(); syncStats();
+  save(); renderCups(); syncMascot(); renderStats();
   floatPts('+1 💧'); popMascot();
   if (state.water === waterGoal) toast('💧 喝水達標！今日水分充足！');
 }
@@ -528,10 +501,10 @@ function renderMeals() {
       <div class="meal-status">${taken ? '✅ 已服藥' : '點我打卡'}</div>
     `;
     div.onclick = () => {
-      const wasTaken = state.meals[meal.id];
-      state.meals[meal.id] = !wasTaken;
-      if (!wasTaken) { state.totalMeds++; floatPts('+1 🌿'); popMascot(); toast(`${meal.icon} ${meal.name}中藥打卡成功！`); }
-      save(); renderMeals(); syncMascot(); syncStats();
+      const was = state.meals[meal.id];
+      state.meals[meal.id] = !was;
+      if (!was) { state.totalMeds++; floatPts('+1 🌿'); popMascot(); toast(`${meal.icon} ${meal.name}中藥打卡成功！`); }
+      save(); renderMeals(); syncMascot(); renderStats();
     };
     grid.appendChild(div);
   });
@@ -540,43 +513,31 @@ function renderMeals() {
 // Timer
 function updateTimer() {
   const now = new Date();
-  const hh = now.getHours(), mm = now.getMinutes(), ss = now.getSeconds();
-  const nowMin = hh * 60 + mm;
-  const waterLeft = (WATER_INTERVAL_MIN - (nowMin % WATER_INTERVAL_MIN)) * 60 - ss;
-  const medOptions = MEALS.map(m => {
-    const targetMin = m.hour * 60;
-    let diff = targetMin - nowMin;
-    if (diff < 0) diff += 24 * 60;
-    return { label: `${m.name}中藥`, icon: m.icon, sec: diff * 60 - ss };
-  }).filter(o => o.sec > 0).sort((a, b) => a.sec - b.sec);
-
+  const hh=now.getHours(), mm=now.getMinutes(), ss=now.getSeconds();
+  const nowMin = hh*60+mm;
+  const waterLeft = (90-(nowMin%90))*60-ss;
+  const medOpts = MEALS.map(m => {
+    let diff = m.hour*60-nowMin; if (diff<0) diff+=1440;
+    return { label:`${m.name}中藥`, icon:m.icon, sec:diff*60-ss };
+  }).filter(o=>o.sec>0).sort((a,b)=>a.sec-b.sec);
   let sec, label, icon;
-  if (medOptions.length && medOptions[0].sec < waterLeft) {
-    ({ sec, label, icon } = medOptions[0]);
-  } else {
-    sec = waterLeft; label = '喝水提醒'; icon = '💧';
-  }
-
-  sec = Math.max(0, sec);
-  const h = Math.floor(sec / 3600), m2 = Math.floor((sec % 3600) / 60), s2 = sec % 60;
-  const str = h > 0 ? `${h}:${pad(m2)}:${pad(s2)}` : `${pad(m2)}:${pad(s2)}`;
-  document.getElementById('countdown').textContent = str;
+  if (medOpts.length && medOpts[0].sec < waterLeft) { ({sec,label,icon}=medOpts[0]); }
+  else { sec=waterLeft; label='喝水提醒'; icon='💧'; }
+  sec = Math.max(0,sec);
+  const h=Math.floor(sec/3600), m2=Math.floor((sec%3600)/60), s2=sec%60;
+  document.getElementById('countdown').textContent = h>0?`${h}:${pad(m2)}:${pad(s2)}`:`${pad(m2)}:${pad(s2)}`;
   document.getElementById('timerTask').textContent  = label;
   document.getElementById('timerEmoji').textContent = icon;
-
-  if (sec === 0 && notifyEnabled) {
-    new Notification('健康小勇士', {
-      body: label === '喝水提醒' ? '💧 該喝水了！' : `🌿 該吃${label.replace('中藥','')}的中藥了！`,
-    });
-  }
+  if (sec===0 && notifyEnabled)
+    new Notification('健康小勇士',{ body: label==='喝水提醒'?'💧 該喝水了！':`🌿 該吃${label.replace('中藥','')}的中藥了！` });
 }
-function pad(n) { return String(n).padStart(2, '0'); }
+function pad(n) { return String(n).padStart(2,'0'); }
 
 function requestNotify() {
   if (!('Notification' in window)) { toast('❌ 瀏覽器不支援通知'); return; }
   Notification.requestPermission().then(p => {
-    if (p === 'granted') { notifyEnabled = true; toast('🔔 通知已開啟！'); }
-    else toast('❌ 通知權限被拒絕，請在瀏覽器設定中允許。');
+    if (p==='granted') { notifyEnabled=true; toast('🔔 通知已開啟！'); }
+    else toast('❌ 通知權限被拒絕。');
   });
 }
 
@@ -586,52 +547,46 @@ function popMascot() {
 }
 function floatPts(text) {
   const el = document.createElement('div');
-  el.className = 'float-pts'; el.textContent = text;
-  el.style.left = (20 + Math.random() * 60) + '%'; el.style.top = '35%';
-  document.body.appendChild(el); setTimeout(() => el.remove(), 1300);
+  el.className='float-pts'; el.textContent=text;
+  el.style.left=(20+Math.random()*60)+'%'; el.style.top='35%';
+  document.body.appendChild(el); setTimeout(()=>el.remove(),1300);
 }
 function toast(msg) {
   clearTimeout(toastTimer);
-  const el = document.querySelector('.toast') || (() => {
-    const t = document.createElement('div'); t.className = 'toast';
-    document.body.appendChild(t); return t;
-  })();
-  el.textContent = msg; el.classList.add('show');
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+  const el = document.querySelector('.toast')||(() => { const t=document.createElement('div'); t.className='toast'; document.body.appendChild(t); return t; })();
+  el.textContent=msg; el.classList.add('show');
+  toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
 }
 function triggerConfetti() {
-  const wrap = document.createElement('div'); wrap.className = 'confetti-wrap';
-  document.body.appendChild(wrap);
-  const colors = ['#f59e0b','#ef4444','#22c55e','#3b82f6','#a78bfa','#f97316'];
-  for (let i = 0; i < 80; i++) {
-    const p = document.createElement('div'); p.className = 'c-piece';
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.background = colors[~~(Math.random() * colors.length)];
-    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-    p.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-    p.style.animationDelay = (Math.random() * 0.6) + 's';
+  const wrap=document.createElement('div'); wrap.className='confetti-wrap'; document.body.appendChild(wrap);
+  const colors=['#f59e0b','#ef4444','#22c55e','#3b82f6','#a78bfa','#f97316'];
+  for (let i=0;i<80;i++) {
+    const p=document.createElement('div'); p.className='c-piece';
+    p.style.left=Math.random()*100+'vw';
+    p.style.background=colors[~~(Math.random()*colors.length)];
+    p.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    p.style.animationDuration=(1.5+Math.random()*2)+'s';
+    p.style.animationDelay=(Math.random()*0.6)+'s';
     wrap.appendChild(p);
   }
-  setTimeout(() => wrap.remove(), 5000);
+  setTimeout(()=>wrap.remove(),5000);
 }
 
 function updateDate() {
-  const d = new Date();
-  const days = ['日','一','二','三','四','五','六'];
-  document.getElementById('datePill').textContent =
-    `${d.getMonth()+1}月${d.getDate()}日（星期${days[d.getDay()]}）`;
+  const d=new Date(), days=['日','一','二','三','四','五','六'];
+  document.getElementById('datePill').textContent=`${d.getMonth()+1}月${d.getDate()}日（星期${days[d.getDay()]}）`;
 }
 
 function checkDayRollover() {
-  if (state.date !== todayKey()) {
-    state = loadState(); renderCups(); renderMeals(); syncMascot(); syncStats(); updateDate();
-  }
+  if (state.date!==todayKey()) { state=loadState(); renderCups(); renderMeals(); syncMascot(); renderStats(); updateDate(); }
 }
 
 function init() {
-  updateDate(); renderCups(); renderMeals(); syncMascot(); syncStats(); updateTimer();
+  updateDate(); renderCups(); renderMeals(); syncMascot(); renderStats();
+  switchTab(statsTab);
+  updateTimer();
   setInterval(updateTimer, 1000);
-  setInterval(checkDayRollover, 60_000);
+  setInterval(checkDayRollover, 60000);
 }
 
 init();
