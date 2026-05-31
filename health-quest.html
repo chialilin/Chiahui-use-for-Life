@@ -52,7 +52,19 @@
       75% { transform: scale(1.15) rotate(8deg); }
     }
     .mascot-msg { font-size: 14px; color: #cbd5e1; margin-top: 8px; min-height: 20px; }
-    .xp-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+    /* Progress mode tabs */
+    .progress-mode-tabs {
+      display: flex; gap: 4px; margin-top: 14px; margin-bottom: 8px;
+      background: rgba(255,255,255,0.06); border-radius: 10px; padding: 3px;
+    }
+    .progress-mode-tab {
+      flex: 1; padding: 5px 4px; border: none; border-radius: 7px;
+      font-size: 11px; font-weight: 700; cursor: pointer;
+      background: none; color: #64748b; transition: all 0.2s;
+    }
+    .progress-mode-tab.active { background: rgba(255,255,255,0.12); color: #f8fafc; }
+
+    .xp-row { display: flex; align-items: center; gap: 10px; }
     .xp-bar { flex: 1; height: 10px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
     .xp-fill {
       height: 100%; border-radius: 99px;
@@ -232,6 +244,11 @@
     <div class="mascot" id="mascot">🌱</div>
     <p class="mascot-msg" id="mascotMsg">今天的健康任務開始囉！加油！</p>
   </div>
+  <div class="progress-mode-tabs">
+    <button class="progress-mode-tab active" id="pm-all"   onclick="switchProgressMode('all')"  >💧＋🌿 全部</button>
+    <button class="progress-mode-tab"        id="pm-water" onclick="switchProgressMode('water')">💧 喝水</button>
+    <button class="progress-mode-tab"        id="pm-med"   onclick="switchProgressMode('med')"  >🌿 吃藥</button>
+  </div>
   <div class="xp-row">
     <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
     <div class="xp-label" id="xpLabel">0/11</div>
@@ -329,12 +346,28 @@ let waterGoal   = Math.max(1, Math.round(totalMlGoal / mlPerCup));
 let pendingTotalMl  = totalMlGoal;
 let pendingMlPerCup = mlPerCup;
 
-let statsTab = localStorage.getItem('hq_statsTab') || 'all';
+let statsTab        = localStorage.getItem('hq_statsTab')    || 'all';
+let progressMode    = localStorage.getItem('hq_progressMode') || 'all';
 let state = loadState();
 let notifyEnabled = false;
 let toastTimer = null;
 
+function progressXP() {
+  const meds = Object.values(state.meals).filter(Boolean).length;
+  if (progressMode === 'water') return { cur: state.water, max: waterGoal };
+  if (progressMode === 'med')   return { cur: meds, max: 3 };
+  return { cur: state.water + meds, max: waterGoal + 3 };
+}
 function maxXP() { return waterGoal + 3; }
+
+function switchProgressMode(mode) {
+  progressMode = mode;
+  localStorage.setItem('hq_progressMode', mode);
+  ['all','water','med'].forEach(m =>
+    document.getElementById('pm-'+m).classList.toggle('active', m===mode)
+  );
+  syncMascot();
+}
 
 function todayKey() { return new Date().toISOString().slice(0, 10); }
 function yesterdayKey() { const d = new Date(); d.setDate(d.getDate()-1); return d.toISOString().slice(0,10); }
@@ -361,13 +394,14 @@ function save() { localStorage.setItem('hq_v2', JSON.stringify(state)); }
 function xp() { return state.water + Object.values(state.meals).filter(Boolean).length; }
 
 function syncMascot() {
-  const pct = xp() / maxXP();
+  const { cur, max } = progressXP();
+  const pct = cur / max;
   const idx = pct===0?0:pct<0.31?1:pct<0.61?2:pct<1?3:4;
   const m = MASCOTS[idx];
   document.getElementById('mascot').textContent    = m.e;
   document.getElementById('mascotMsg').textContent = m.msg;
-  document.getElementById('xpFill').style.width    = `${Math.min(100,(xp()/maxXP())*100)}%`;
-  document.getElementById('xpLabel').textContent   = `${xp()}/${maxXP()}`;
+  document.getElementById('xpFill').style.width    = `${Math.min(100, pct*100)}%`;
+  document.getElementById('xpLabel').textContent   = `${cur}/${max}`;
   document.getElementById('streakDays').textContent = state.streak;
 
   if (xp() >= maxXP() && !state.completed) {
@@ -584,6 +618,7 @@ function checkDayRollover() {
 function init() {
   updateDate(); renderCups(); renderMeals(); syncMascot(); renderStats();
   switchTab(statsTab);
+  switchProgressMode(progressMode);
   updateTimer();
   setInterval(updateTimer, 1000);
   setInterval(checkDayRollover, 60000);
